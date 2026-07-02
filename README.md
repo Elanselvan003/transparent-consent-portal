@@ -1,5 +1,7 @@
 # Consented Data Telemetry Hub
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Elanselvan003/transparent-consent-portal)
+
 A sleek, transparent data collection web application designed to demonstrate consent-based diagnostic gathering. Users have complete, active control over what browser details and hardware permissions they share.
 
 ## Features
