@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consented Data Telemetry Hub</title>
+  <meta name="description" content="A transparent, consent-based testing portal that showcases browser diagnostics, system properties, and device capabilities under user permission control.">
+  
+  <!-- Import Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Styling Sheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="background-decorations">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+  </div>
+
+  <main class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>TelemetryShield</span>
+      </div>
+      <h1>Diagnostic &amp; Consent Testing Hub</h1>
+      <p class="subtitle">Fully transparent, consent-controlled browser telemetry and access evaluation tool.</p>
+    </header>
+
+    <div class="grid-layout">
+      <!-- Left side: Information, Consent, & Form -->
+      <section class="card control-panel">
+        <div class="section-header">
+          <h2>1. Data Consent &amp; Settings</h2>
+          <p class="description">Select which data points you permit this application to fetch. No data is collected or sent without your explicit approval.</p>
+        </div>
+
+        <div class="consent-agreement-box">
+          <label class="custom-checkbox-container" for="global-consent-checkbox">
+            <input type="checkbox" id="global-consent-checkbox" name="global-consent">
+            <span class="checkmark"></span>
+            <span class="checkbox-label">
+              <strong>I consent to the collection of selected browser diagnostic data</strong>
+              <span class="subtext">By checking this, you authorize the application to assemble the selected metadata below. Unchecking will clear all collected fields.</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="telemetry-options-group disabled-state" id="telemetry-options-section">
+          <h3>Telemetry Fields (Automatic with Consent)</h3>
+          
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">User Agent &amp; OS Platform</span>
+              <span class="telemetry-purpose">Identifies the browser type, version, and general operating system (Mac, Windows, Linux, etc.) for compatibility testing.</span>
+            </div>
+            <label class="switch" for="toggle-user-agent">
+              <input type="checkbox" id="toggle-user-agent" checked disabled>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">Language &amp; Region Settings</span>
+              <span class="telemetry-purpose">Retrieves your preferred browser language setting (e.g., en-US) to test localization capability.</span>
+            </div>
+            <label class="switch" for="toggle-language">
+              <input type="checkbox" id="toggle-language" checked disabled>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">Screen &amp; Viewport Resolution</span>
+              <span class="telemetry-purpose">Measures the display height, width, and color depth to evaluate responsive design constraints.</span>
+            </div>
+            <label class="switch" for="toggle-resolution">
+              <input type="checkbox" id="toggle-resolution" checked disabled>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">Timezone Offset</span>
+              <span class="telemetry-purpose">Determines the local time offset from UTC to handle time-sensitive events accurately.</span>
+            </div>
+            <label class="switch" for="toggle-timezone">
+              <input type="checkbox" id="toggle-timezone" checked disabled>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <h3 class="space-above">Device Permissions (Requires Dynamic Consent)</h3>
+
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">Geographical Location</span>
+              <span class="telemetry-purpose">Requests browser location coordinates to test geotargeted web features. (No background tracing).</span>
+            </div>
+            <div class="permission-actions">
+              <span class="status-badge status-pending" id="location-badge">Not Requested</span>
+              <button class="btn btn-secondary btn-sm" id="btn-request-location" disabled>Authorize Location</button>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">Camera Access</span>
+              <span class="telemetry-purpose">Attempts to request camera access to verify hardware availability and permissions handling. (No feed is saved or recorded).</span>
+            </div>
+            <div class="permission-actions">
+              <span class="status-badge status-pending" id="camera-badge">Not Requested</span>
+              <button class="btn btn-secondary btn-sm" id="btn-request-camera" disabled>Authorize Camera</button>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-info">
+              <span class="telemetry-title">Microphone Access</span>
+              <span class="telemetry-purpose">Attempts to request microphone access to verify audio hardware capability. (No audio is recorded or stored).</span>
+            </div>
+            <div class="permission-actions">
+              <span class="status-badge status-pending" id="microphone-badge">Not Requested</span>
+              <button class="btn btn-secondary btn-sm" id="btn-request-microphone" disabled>Authorize Microphone</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header space-above">
+          <h2>2. Optional Manual Information</h2>
+          <p class="description">You may optionally supply your name and phone number. This information must be typed in manually and will not be gathered silently.</p>
+        </div>
+
+        <form id="optional-user-form" class="disabled-state">
+          <div class="form-group">
+            <label for="input-name">Full Name (Optional)</label>
+            <input type="text" id="input-name" placeholder="John Doe" autocomplete="name" disabled>
+          </div>
+          
+          <div class="form-group">
+            <label for="input-phone">Phone Number (Optional)</label>
+            <input type="tel" id="input-phone" placeholder="+1 (555) 019-2834" autocomplete="tel" disabled>
+          </div>
+        </form>
+
+        <div class="action-footer">
+          <button type="button" class="btn btn-primary" id="btn-submit-telemetry" disabled>
+            Submit Consented Data
+          </button>
+          <p class="submit-note">Requires active global consent check above.</p>
+        </div>
+      </section>
+
+      <!-- Right side: Live JSON Inspector -->
+      <section class="card data-panel">
+        <div class="section-header">
+          <h2>3. Real-Time Telemetry Data Payload</h2>
+          <p class="description">This shows the exact structured JSON object that will be sent to the Express server upon clicking submit. Notice the absence of any hidden identifiers.</p>
+        </div>
+
+        <div class="json-viewer-container">
+          <div class="json-header">
+            <span class="file-name">telemetry_payload.json</span>
+            <button class="btn-copy" id="btn-copy-json" title="Copy to clipboard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <pre><code id="json-display">{
+  "consentGranted": false,
+  "timestamp": "2026-07-01T12:26:00.000Z",
+  "metadata": {},
+  "optionalInput": {}
+}</code></pre>
+        </div>
+
+        <div id="status-toast" class="toast hidden">
+          <div class="toast-content">
+            <div class="toast-icon" id="toast-icon">✓</div>
+            <div class="toast-message" id="toast-message">Success!</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer-bar">
+    <p>&copy; 2026 TelemetryShield Portal. Built with complete developer transparency and privacy engineering.</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
